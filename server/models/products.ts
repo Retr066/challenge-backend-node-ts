@@ -1,17 +1,17 @@
-import { Schema } from "mongoose";
+import { Schema } from 'mongoose';
 
-import { IProduct } from "../interfaces/product";
-
-import { cnxProducts } from "../db/mongodb";
+import type { IProduct } from '../interfaces/product';
+import { cnxProducts } from '../db/mongodb';
 
 const productsSchema = new Schema<IProduct>(
   {
     name: { type: String },
     sku: { type: String },
+    accountId: { type: Schema.Types.ObjectId, ref: 'Accounts', required: true },
   },
-  { timestamps: true }
+  { timestamps: true, versionKey: false },
 );
 
-const Accounts = cnxProducts.model<IProduct>("Accounts", productsSchema);
+const Products = cnxProducts.model<IProduct>('Products', productsSchema);
 
-export default Accounts;
+export default Products;

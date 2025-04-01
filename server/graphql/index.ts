@@ -1,10 +1,11 @@
-import { ApolloServer } from "apollo-server-express";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
-import { makeExecutableSchema } from "@graphql-tools/schema";
+import { ApolloServer } from 'apollo-server-express';
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
+import { makeExecutableSchema } from '@graphql-tools/schema';
 
-import { typeDefs, resolvers } from "./root";
+import config from '../config/app';
 
-import config from "../config/app";
+import { typeDefs, resolvers } from './root';
+
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -18,7 +19,7 @@ async function startApolloServer(app: any) {
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
   });
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app, path: "/graphql" });
+  apolloServer.applyMiddleware({ app, path: '/graphql' });
 }
 
 export { startApolloServer };
